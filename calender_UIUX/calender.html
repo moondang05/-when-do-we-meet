@@ -4,14 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>동적 레트로 달력 UI</title>
+    <title>레트로 포스터 달력</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
     <div class="calendar-wrapper">
-
         <!-- 달력 헤더 -->
         <div class="cal-header">
             <div class="cal-month" id="month-display"></div>
@@ -23,15 +22,14 @@
 
         <!-- 달력 본문 (그리드) -->
         <div class="cal-grid" id="calendar-grid">
-            <!-- 날짜 데이터가 여기에 자동으로 들어갑니다 -->
+            <!-- JS로 요일과 날짜가 채워집니다 -->
         </div>
 
-        <!-- 하단 달 넘기기 버튼 (복구!) -->
+        <!-- 하단 달 넘기기 버튼 (말랑 폰트 각괄호) -->
         <div class="cal-controls">
-            <button id="prev-btn">◀ 이전 달</button>
-            <button id="next-btn">다음 달 ▶</button>
+            <button id="prev-btn" class="arrow-btn">&lt;</button>
+            <button id="next-btn" class="arrow-btn">&gt;</button>
         </div>
-
     </div>
 
     <script src="script.js"></script>
