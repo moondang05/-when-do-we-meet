@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>일정 맞추기 프로젝트</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="app-container">
+
+        <div id="main-screen" class="screen">
+            <button class="enter-button" onclick="navigate('list-screen')">프로젝트 목록 보기</button>
+        </div>
+
+        <div id="list-screen" class="screen hidden-below">
+            <div class="header">
+                <button onclick="navigate('main-screen', 'back')">◀ 홈</button>
+                <div style="font-weight: bold;">내 프로젝트</div>
+                <button>편집</button>
+            </div>
+            <div class="project-grid">
+                <div class="project-card" onclick="navigate('detail-screen')">여름 휴가 계획</div>
+                <div class="project-card" onclick="navigate('detail-screen')">스터디 모임</div>
+                <div class="project-card" onclick="navigate('detail-screen')">팀 프로젝트</div>
+            </div>
+            <button class="fab-button">+ 새 프로젝트</button>
+        </div>
+
+        <div id="detail-screen" class="screen hidden-below">
+            <div class="header">
+                <button onclick="navigate('list-screen', 'back')">◀ 목록</button>
+                <div class="gauge-container">
+                    <div>참가자 응답 (3/5)</div>
+                    <progress value="60" max="100"></progress>
+                </div>
+                <div style="width: 50px;"></div>
+            </div>
+
+            <div class="calendar-area">
+                <iframe src="../calender_UIUX/calender.html" class="calendar-placeholder"></iframe>
+            </div>
+
+            <div class="footer">
+                <button>🔗 초대</button>
+                <button class="mode-btn">모드 전환</button>
+                <button>👤 프로필</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
