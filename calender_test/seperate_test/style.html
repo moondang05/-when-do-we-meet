@@ -4,16 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>레트로 달력 UI</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fredoka:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
-    
+    <!-- 외부 CSS 연결 -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="calendar-wrapper">
+    
+    <!-- 달력 헤더 (타이포그래피 강조) -->
     <div class="cal-header">
         <div class="cal-month">MAY</div>
         <div class="cal-year-info">
@@ -22,7 +20,9 @@
         </div>
     </div>
 
-    <div class="cal-grid" id="calendar-grid">
+    <!-- 달력 본문 (그리드) -->
+    <div class="cal-grid">
+        <!-- 요일 -->
         <div class="cal-cell weekday">Mo</div>
         <div class="cal-cell weekday">Tu</div>
         <div class="cal-cell weekday">We</div>
@@ -31,6 +31,7 @@
         <div class="cal-cell weekday">Sa</div>
         <div class="cal-cell weekday">Su</div>
 
+        <!-- 1주차 -->
         <div class="cal-cell dimmed">27</div>
         <div class="cal-cell dimmed">28</div>
         <div class="cal-cell dimmed">29</div>
@@ -39,14 +40,16 @@
         <div class="cal-cell">2</div>
         <div class="cal-cell">3</div>
 
+        <!-- 2주차 -->
         <div class="cal-cell">4</div>
         <div class="cal-cell">5</div>
         <div class="cal-cell">6</div>
         <div class="cal-cell">7</div>
-        <div class="cal-cell">8</div> 
+        <div class="cal-cell selected">8</div> <!-- 빨간색 포인트 선택됨 -->
         <div class="cal-cell">9</div>
         <div class="cal-cell">10</div>
 
+        <!-- 3주차 -->
         <div class="cal-cell">11</div>
         <div class="cal-cell">12</div>
         <div class="cal-cell">13</div>
@@ -55,6 +58,7 @@
         <div class="cal-cell">16</div>
         <div class="cal-cell">17</div>
 
+        <!-- 4주차 -->
         <div class="cal-cell">18</div>
         <div class="cal-cell">19</div>
         <div class="cal-cell">20</div>
@@ -63,7 +67,8 @@
         <div class="cal-cell">23</div>
         <div class="cal-cell">24</div>
 
-        <div class="cal-cell">25</div> 
+        <!-- 5주차 -->
+        <div class="cal-cell selected">25</div> <!-- 빨간색 포인트 선택됨 -->
         <div class="cal-cell">26</div>
         <div class="cal-cell">27</div>
         <div class="cal-cell">28</div>
@@ -73,6 +78,7 @@
     </div>
 </div>
 
+<!-- 외부 JS 연결 -->
 <script src="script.js"></script>
 
 </body>

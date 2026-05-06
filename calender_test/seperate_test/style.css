@@ -5,53 +5,39 @@
     padding: 0; 
 }
 
-/* =========================================
-   폰트 믹스 앤 매치 (원하는 줄의 주석을 해제해봐!) 
-========================================= */
-
-/* 1. 키치하고 둥글둥글한 느낌 (현재 적용됨) */
-body {
-    font-family: 'Fredoka', sans-serif;
-}
-
-/* 2. 두껍고 강렬한 빈티지 포스터 느낌 */
-/* body { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; } */
-
-/* 3. 부드러운 캘리그라피 느낌 */
-/* body { font-family: 'Pacifico', cursive; } */
-
-
-/* 전체 배경 설정 */
+/* 전체 배경 (빈티지한 크림색) */
 body {
     background-color: #e5e5e5;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* 깔끔한 산세리프 폰트 */
 }
 
 /* 달력 컨테이너 */
 .calendar-wrapper {
-    background-color: #F5F1E7; 
+    background-color: #F5F1E7; /* 포스터 종이 느낌의 배경색 */
     width: 100%;
-    max-width: 400px;
+    max-width: 400px; /* 모바일 사이즈 기준 */
     padding: 24px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
-/* 상단 헤더 영역 */
+/* 상단 헤더 영역 (큰 타이포그래피) */
 .cal-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     margin-bottom: 20px;
-    color: #1A2B4C;
+    color: #1A2B4C; /* 딥 네이비 */
 }
 
 .cal-month {
     font-size: 5rem;
-    font-weight: 700; /* Fredoka 폰트에 맞춰 두께 조절 */
+    font-weight: 900;
     line-height: 0.8;
+    letter-spacing: -2px;
     text-transform: uppercase;
 }
 
@@ -63,21 +49,20 @@ body {
 }
 
 .cal-month-num {
-    border: 2px solid #1A2B4C;
+    border: 1px solid #1A2B4C;
     border-radius: 50%;
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: 600;
-    font-size: 1.1rem;
+    font-weight: bold;
     margin-bottom: 4px;
 }
 
 .cal-year {
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: 800;
     line-height: 1;
 }
 
@@ -85,34 +70,35 @@ body {
 .cal-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
+    /* 선 굵은 그리드를 만들기 위한 꼼수 */
     background-color: #1A2B4C;
-    gap: 1.5px; /* 선 굵기 조절 (조금 더 두껍게) */
-    border: 1.5px solid #1A2B4C;
+    gap: 1px; 
+    border: 1px solid #1A2B4C;
 }
 
 /* 요일 및 날짜 공통 셀 스타일 */
 .cal-cell {
-    background-color: #F5F1E7;
-    aspect-ratio: 1;
+    background-color: #F5F1E7; /* 셀 배경을 다시 크림색으로 */
+    aspect-ratio: 1; /* 정사각형 유지 */
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    padding: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
+    padding: 6px;
+    font-size: 1rem;
+    font-weight: 700;
     color: #1A2B4C;
     position: relative;
-    transition: all 0.2s ease; /* 색상 변할 때 부드러운 애니메이션 */
     cursor: pointer;
 }
 
 /* 요일 헤더 부분 */
 .weekday {
-    aspect-ratio: auto;
-    height: 35px;
+    aspect-ratio: auto; /* 요일은 정사각형 아님 */
+    height: 30px;
     justify-content: center;
     align-items: center;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    font-weight: 800;
     text-transform: uppercase;
     cursor: default;
 }
@@ -123,12 +109,12 @@ body {
     cursor: default;
 }
 
-/* 선택된 날짜 (포인트 컬러) */
+/* 선택된 날짜 (포인트 컬러 - 쨍한 레드) */
 .selected {
     background-color: #E74C3C;
     color: white;
-    border-radius: 50px; /* 완전 둥글게 */
-    z-index: 1;
-    transform: scale(1.05); /* 선택 시 살짝 튀어나오는 효과 */
-    box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4); /* 그림자 추가로 입체감 부여 */
+    border-radius: 40px; /* 알약 모양처럼 둥글게 */
+    z-index: 1; /* 테두리 위로 올라오게 */
+    /* 1px 갭 때문에 둥근 모서리가 잘리는 걸 방지하기 위해 스케일 살짝 키움 */
+    transform: scale(1.02); 
 }
