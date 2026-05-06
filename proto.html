@@ -1,36 +1,52 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>일정 맞추기 프로젝트</title>
     <style>
         /* 기본 리셋 및 모바일 뷰어 설정 */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background-color: #f0f0f0; display: flex; justify-content: center; font-family: 'Pretendard', sans-serif; }
-        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            font-family: 'Pretendard', sans-serif;
+        }
+
         /* 모바일 화면 컨테이너 (16:9 세로 비율 근사치, 최대 너비 제한) */
         #app-container {
             width: 100vw;
-            max-width: 430px; /* 아이폰 Pro Max 너비 정도 */
+            max-width: 430px;
+            /* 아이폰 Pro Max 너비 정도 */
             height: 100vh;
             background-color: #ffffff;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
 
         /* 화면 공통 설정 */
         .screen {
-            display: none; /* 기본적으로 숨김 */
+            display: none;
+            /* 기본적으로 숨김 */
             width: 100%;
             height: 100%;
             flex-direction: column;
             position: absolute;
-            top: 0; left: 0;
+            top: 0;
+            left: 0;
         }
+
         .screen.active {
-            display: flex; /* 활성화된 화면만 보임 */
+            display: flex;
+            /* 활성화된 화면만 보임 */
         }
 
         /* 상단 헤더 공통 */
@@ -55,19 +71,35 @@
         }
 
         /* --- [1] 메인 화면 스타일 --- */
-        #main-screen { justify-content: center; align-items: center; }
-        .thumbnail { width: 150px; height: 150px; background: #e0e0e0; border-radius: 16px; margin-bottom: 30px; display: flex; justify-content: center; align-items: center;}
-        
+        #main-screen {
+            justify-content: center;
+            align-items: center;
+        }
+
+        .thumbnail {
+            width: 150px;
+            height: 150px;
+            background: #e0e0e0;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         /* --- [2] 프로젝트 목록 화면 스타일 --- */
         .project-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* 2행 스퀘어 형태 */
+            grid-template-columns: 1fr 1fr;
+            /* 2행 스퀘어 형태 */
             gap: 16px;
             padding: 16px;
             overflow-y: auto;
         }
+
         .project-card {
-            aspect-ratio: 1; /* 정사각형 */
+            aspect-ratio: 1;
+            /* 정사각형 */
             background: #f8f9fa;
             border: 1px solid #ddd;
             border-radius: 12px;
@@ -76,7 +108,9 @@
             align-items: center;
             cursor: pointer;
         }
-        .fab-button { /* 플로팅 액션 버튼 (새 프로젝트 생성) */
+
+        .fab-button {
+            /* 플로팅 액션 버튼 (새 프로젝트 생성) */
             position: absolute;
             bottom: 20px;
             left: 50%;
@@ -90,9 +124,18 @@
         }
 
         /* --- [3] 개별 프로젝트 페이지 스타일 --- */
-        .gauge-container { flex-grow: 1; margin: 0 16px; text-align: center; font-size: 12px; }
-        progress { width: 100%; height: 8px; }
-        
+        .gauge-container {
+            flex-grow: 1;
+            margin: 0 16px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        progress {
+            width: 100%;
+            height: 8px;
+        }
+
         .calendar-area {
             flex-grow: 1;
             display: flex;
@@ -101,9 +144,11 @@
             padding: 16px;
             /* 달력 비율 10~12:8 (대략 1.25~1.5 : 1) 적용을 위한 래퍼 */
         }
+
         .calendar-placeholder {
             width: 100%;
-            aspect-ratio: 1.25; /* 10:8 비율 */
+            aspect-ratio: 1.25;
+            /* 10:8 비율 */
             background: #e9ecef;
             border-radius: 12px;
             display: flex;
@@ -112,68 +157,80 @@
         }
 
         /* 공통 버튼 스타일 */
-        button { padding: 8px 12px; cursor: pointer; border: 1px solid #ccc; background: white; border-radius: 6px; }
-        button:hover { background: #f0f0f0; }
+        button {
+            padding: 8px 12px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background: white;
+            border-radius: 6px;
+        }
+
+        button:hover {
+            background: #f0f0f0;
+        }
     </style>
 </head>
+
 <body>
 
-<div id="app-container">
-    
-    <div id="main-screen" class="screen active">
-        <div class="thumbnail">페이지 썸네일</div>
-        <button onclick="navigate('list-screen')">프로젝트 목록으로 넘어가기</button>
-    </div>
+    <div id="app-container">
 
-    <div id="list-screen" class="screen">
-        <div class="header">
-            <button onclick="navigate('main-screen')">◀ 메인</button>
-            <div style="font-weight: bold;">내 프로젝트</div>
-            <button>편집</button>
+        <div id="main-screen" class="screen active">
+            <div class="thumbnail">페이지 썸네일</div>
+            <button onclick="navigate('list-screen')">프로젝트 목록으로 넘어가기</button>
         </div>
-        <div class="project-grid">
-            <div class="project-card" onclick="navigate('detail-screen')">프로젝트 A</div>
-            <div class="project-card" onclick="navigate('detail-screen')">프로젝트 B</div>
-            <div class="project-card" onclick="navigate('detail-screen')">프로젝트 C</div>
-        </div>
-        <button class="fab-button">+ 새 프로젝트</button>
-    </div>
 
-    <div id="detail-screen" class="screen">
-        <div class="header">
-            <button onclick="navigate('list-screen')">◀ 목록</button>
-            <div class="gauge-container">
-                <div>참가자 응답 (3/5)</div>
-                <progress value="60" max="100"></progress>
+        <div id="list-screen" class="screen">
+            <div class="header">
+                <button onclick="navigate('main-screen')">◀ 메인</button>
+                <div style="font-weight: bold;">내 프로젝트</div>
+                <button>편집</button>
             </div>
-            <div style="width: 50px;"></div> </div>
-        
-        <div class="calendar-area">
-            <div class="calendar-placeholder">
-                [달력 뷰 UI 영역 (비율 10~12:8)]<br>추후 라이브러리 연동
+            <div class="project-grid">
+                <div class="project-card" onclick="navigate('detail-screen')">프로젝트 A</div>
+                <div class="project-card" onclick="navigate('detail-screen')">프로젝트 B</div>
+                <div class="project-card" onclick="navigate('detail-screen')">프로젝트 C</div>
+            </div>
+            <button class="fab-button">+ 새 프로젝트</button>
+        </div>
+
+        <div id="detail-screen" class="screen">
+            <div class="header">
+                <button onclick="navigate('list-screen')">◀ 목록</button>
+                <div class="gauge-container">
+                    <div>참가자 응답 (3/5)</div>
+                    <progress value="60" max="100"></progress>
+                </div>
+                <div style="width: 50px;"></div>
+            </div>
+
+            <div class="calendar-area">
+                <div class="calendar-placeholder">
+                    [달력 뷰 UI 영역 (비율 10~12:8)]<br>추후 라이브러리 연동
+                </div>
+            </div>
+
+            <div class="footer">
+                <button>🔗 초대</button>
+                <button style="background: #007bff; color: white; border: none;">모드 전환</button>
+                <button>👤 프로필</button>
             </div>
         </div>
 
-        <div class="footer">
-            <button>🔗 초대</button>
-            <button style="background: #007bff; color: white; border: none;">모드 전환</button>
-            <button>👤 프로필</button>
-        </div>
     </div>
 
-</div>
-
-<script>
-    // 간단한 화면 전환(라우팅) 로직
-    function navigate(screenId) {
-        // 모든 화면에서 active 클래스 제거
-        document.querySelectorAll('.screen').forEach(screen => {
-            screen.classList.remove('active');
-        });
-        // 요청된 화면에만 active 클래스 추가
-        document.getElementById(screenId).classList.add('active');
-    }
-</script>
+    <script>
+        // 간단한 화면 전환(라우팅) 로직
+        function navigate(screenId) {
+            // 모든 화면에서 active 클래스 제거
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            // 요청된 화면에만 active 클래스 추가
+            document.getElementById(screenId).classList.add('active');
+        }
+    </script>
 
 </body>
+
 </html>
