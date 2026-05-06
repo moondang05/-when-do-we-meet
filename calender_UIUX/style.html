@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동적 레트로 달력 UI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="calendar-wrapper">
+
+        <!-- 달력 헤더 -->
+        <div class="cal-header">
+            <div class="cal-month" id="month-display"></div>
+            <div class="cal-year-info">
+                <div class="cal-month-num" id="month-num-display"></div>
+                <div class="cal-year" id="year-display"></div>
+            </div>
+        </div>
+
+        <!-- 달력 본문 (그리드) -->
+        <div class="cal-grid" id="calendar-grid">
+            <!-- 날짜 데이터가 여기에 자동으로 들어갑니다 -->
+        </div>
+
+        <!-- 하단 달 넘기기 버튼 (복구!) -->
+        <div class="cal-controls">
+            <button id="prev-btn">◀ 이전 달</button>
+            <button id="next-btn">다음 달 ▶</button>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

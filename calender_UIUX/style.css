@@ -1,0 +1,175 @@
+/* 기본 리셋 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg-color: #F5F1E7;
+    --line-color: #1A2B4C;
+    --point-color: #E74C3C;
+}
+
+/* 테마 클래스들 */
+.theme-green {
+    --line-color: #2D5A27;
+    --point-color: #F4A261;
+}
+
+.theme-purple {
+    --line-color: #6A4C93;
+    --point-color: #E76F51;
+}
+
+.theme-pink {
+    --line-color: #D90429;
+    --point-color: #FFB703;
+}
+
+.theme-yellow {
+    --line-color: #E9C46A;
+    --point-color: #2A9D8F;
+}
+
+.theme-blue {
+    --line-color: #1D3557;
+    --point-color: #E63946;
+}
+
+.theme-orange {
+    --line-color: #F4A261;
+    --point-color: #264653;
+}
+
+body {
+    background-color: #e5e5e5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    transition: background-color 0.5s;
+}
+
+.calendar-wrapper {
+    background-color: var(--bg-color);
+    width: 100%;
+    max-width: 400px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.cal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    color: var(--line-color);
+}
+
+.cal-month {
+    font-size: 4rem;
+    font-weight: 900;
+    line-height: 0.8;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+}
+
+.cal-year-info {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.cal-month-num {
+    border: 2px solid var(--line-color);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.cal-year {
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background-color: var(--line-color);
+    gap: 1.5px;
+    border: 1.5px solid var(--line-color);
+}
+
+.cal-cell {
+    background-color: var(--bg-color);
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--line-color);
+    position: relative;
+    z-index: 1;
+    /* 글씨가 원 위로 올라오게 설정 */
+}
+
+.weekday {
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.dimmed {
+    color: #b5b1a5;
+}
+
+/* 선택된 날짜 (글씨 생략, 셀 안의 원형 디자인만 적용) */
+.selected {
+    color: var(--bg-color);
+    /* 글씨 색상을 배경색(흰색 계열)으로 반전 */
+}
+
+/* 셀 밖으로 나가지 않는 가상의 원을 그림 */
+.selected::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    bottom: 2px;
+    left: 2px;
+    right: 2px;
+    /* 셀 안쪽에 살짝 여백을 둔 꽉 찬 원 */
+    background-color: var(--point-color);
+    border-radius: 50%;
+    z-index: -1;
+    /* 글씨 뒤로 깔리게 설정 */
+}
+
+.cal-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.cal-controls button {
+    padding: 8px 12px;
+    cursor: pointer;
+    border: 1px solid var(--line-color);
+    background: transparent;
+    color: var(--line-color);
+    font-weight: bold;
+    border-radius: 4px;
+}
