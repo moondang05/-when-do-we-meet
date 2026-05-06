@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const prevLastDate = new Date(year, month, 0).getDate();
         const lastDate = new Date(year, month + 1, 0).getDate();
 
-        // 1. 이전 달 빈칸 채우기
+        // 이전 달 빈칸
         for (let i = emptyDays - 1; i >= 0; i--) {
             const div = document.createElement('div');
             div.className = 'cal-cell dimmed';
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
             grid.appendChild(div);
         }
 
-        // 2. 이번 달 날짜 채우기
+        // 이번 달 날짜
         for (let i = 1; i <= lastDate; i++) {
             const div = document.createElement('div');
             div.className = 'cal-cell';
@@ -79,12 +79,12 @@ document.addEventListener('DOMContentLoaded', () => {
             grid.appendChild(div);
         }
 
-        // 3. 다음 달 빈칸 채우기 (딱 필요한 줄까지만!)
-        const currentMonthCells = emptyDays + lastDate; // 이번 달을 표시하는 데 사용된 총 칸 수
-        const totalRows = Math.ceil(currentMonthCells / 7); // 필요한 주(행) 수 계산 (예: 28일짜리 달은 4줄, 보통은 5줄, 길면 6줄)
-        const totalCells = totalRows * 7; // 그 줄을 꽉 채우기 위한 총 칸 수
+        // 다음 달 빈칸 (딱 필요한 줄까지만!)
+        const currentMonthCells = emptyDays + lastDate;
+        const totalRows = Math.ceil(currentMonthCells / 7);
+        const totalCells = totalRows * 7;
 
-        let nextDays = totalCells - currentMonthCells; // 마지막 줄의 남은 빈 칸 계산
+        let nextDays = totalCells - currentMonthCells;
 
         if (nextDays > 0) {
             for (let i = 1; i <= nextDays; i++) {
@@ -98,7 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderCalendar(currentDate);
 
-    // 버튼 이벤트
     document.getElementById('prev-btn').addEventListener('click', () => {
         currentDate.setMonth(currentDate.getMonth() - 1);
         renderCalendar(currentDate);
