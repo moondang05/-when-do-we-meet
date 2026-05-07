@@ -18,32 +18,72 @@
 
         <div id="list-screen" class="screen hidden-below">
             <div class="header">
-                <button onclick="navigate('main-screen', 'back')">◀ 홈</button>
-                <div style="font-weight: bold;">내 프로젝트</div>
-                <button>편집</button>
+                <button id="list-left-btn" onclick="navigate('main-screen', 'back')">◀ 홈</button>
+                <div style="font-weight: bold; color: #ffffff;">내 프로젝트</div>
+                <button id="list-right-btn" onclick="toggleEditMode()">편집</button>
             </div>
+
+            <div class="sort-container">
+                <select id="project-sort" onchange="sortProjects()">
+                    <option value="date">생성일자 순</option>
+                    <option value="name">이름 순서</option>
+                    <option value="status">일정 확정 유무</option>
+                </select>
+            </div>
+
             <div class="project-grid">
-                <div class="project-card" onclick="navigate('detail-screen')">여름 휴가 계획</div>
-                <div class="project-card" onclick="navigate('detail-screen')">스터디 모임</div>
-                <div class="project-card" onclick="navigate('detail-screen')">팀 프로젝트</div>
+                <div class="project-card boarding-pass" onclick="handleCardClick(this)">
+
+                    <div class="ticket-header">
+                        <span class="bp-type">BOARDING PASS ✈</span>
+                        <div class="checkbox"></div>
+                    </div>
+
+                    <div class="ticket-body">
+                        <div class="ticket-main">
+                            <div class="bp-item passenger"><label>PASSENGER</label><span
+                                    class="card-title bp-passenger">여름 휴가 계획</span></div>
+                            <div class="ticket-details-grid">
+                                <div class="bp-item"><label>From</label><span class="from-loc">HOME</span></div>
+                                <div class="bp-item"><label>To</label><span class="to-loc">HOME</span></div>
+                                <div class="bp-item"><label>Date</label><span class="date-val">--/--</span></div>
+                            </div>
+                        </div>
+
+                        <div class="ticket-stub">
+                            <div class="bp-item"><label>Gate</label><span class="date-val">A12</span></div>
+                            <div class="bp-item"><label>Seat</label><span class="date-val">24A</span></div>
+
+                            <div class="bp-barcode-stub">
+                                <div class="bp-barcode">
+                                    <div class="barcode-line w1"></div>
+                                    <div class="barcode-line w2"></div>
+                                    <div class="barcode-line w1"></div>
+                                    <div class="barcode-line w3"></div>
+                                    <div class="barcode-line w1"></div>
+                                    <div class="barcode-line w2"></div>
+                                    <div class="barcode-line w1"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <button class="fab-button">+ 새 프로젝트</button>
+            <button class="fab-button" id="fab-btn" onclick="showCreatePopup()">+ 새 프로젝트</button>
         </div>
 
         <div id="detail-screen" class="screen hidden-below">
             <div class="header">
                 <button onclick="navigate('list-screen', 'back')">◀ 목록</button>
                 <div class="gauge-container">
-                    <div>참가자 응답 (3/5)</div>
+                    <div>응답 (3/5)</div>
                     <progress value="60" max="100"></progress>
                 </div>
                 <div style="width: 50px;"></div>
             </div>
-
             <div class="calendar-area">
                 <iframe src="../calender_UIUX/calender.html" class="calendar-placeholder"></iframe>
             </div>
-
             <div class="footer">
                 <button>🔗 초대</button>
                 <button class="mode-btn">모드 전환</button>
@@ -51,10 +91,47 @@
             </div>
         </div>
 
-    </div>
+        <div id="delete-popup" class="popup-overlay">
+            <div class="popup-box">
+                <p>일상으로 돌아가시겠습니까?</p>
+                <div class="popup-buttons"><button class="popup-btn yes" onclick="confirmDelete()">예</button><button
+                        class="popup-btn no" onclick="closePopup()">아니오</button></div>
+            </div>
+        </div>
+        <div id="create-popup" class="popup-overlay create-overlay">
+            <div class="create-popup-box">
+                <p class="create-popup-title">새로운 여정</p>
 
-    <script src="script.js"></script>
+                <div class="input-group">
+                    <label class="input-label">이름</label>
+                    <input type="text" id="new-project-name" class="create-input">
+                </div>
 
+                <div class="input-group">
+                    <label class="input-label">도착지</label>
+                    <input type="text" id="new-project-dest" class="create-input">
+                </div>
+
+                <div class="color-picker-label">테마 컬러</div>
+                <div class="color-options">
+                    <div class="color-options">
+                        <div class="color-dot active" style="background: #F6E6AA;"
+                            onclick="selectColor(this, '#F6E6AA')">
+                        </div>
+                        <div class="color-dot" style="background: #E76F51;" onclick="selectColor(this, '#E76F51')">
+                        </div>
+                        <div class="color-dot" style="background: #2A9D8F;" onclick="selectColor(this, '#2A9D8F')">
+                        </div>
+                        <div class="color-dot" style="background: #457B9D;" onclick="selectColor(this, '#457B9D')">
+                        </div>
+                    </div>
+                    <div class="popup-buttons"><button class="popup-btn yes" onclick="addProject()">생성</button><button
+                            class="popup-btn no" onclick="closeCreatePopup()">취소</button></div>
+                </div>
+            </div>
+
+        </div>
+        <script src="script.js"></script>
 </body>
 
 </html>
