@@ -32,28 +32,25 @@
             </div>
 
             <div class="project-grid">
-                <div class="project-card boarding-pass" onclick="handleCardClick(this)">
-
+                <div class="project-card boarding-pass" onclick="handleCardClick(this)" style="--theme-color: #F6E6AA;">
                     <div class="ticket-header">
                         <span class="bp-type">BOARDING PASS ✈</span>
                         <div class="checkbox"></div>
                     </div>
-
                     <div class="ticket-body">
                         <div class="ticket-main">
                             <div class="bp-item passenger"><label>PASSENGER</label><span
                                     class="card-title bp-passenger">여름 휴가 계획</span></div>
                             <div class="ticket-details-grid">
                                 <div class="bp-item"><label>From</label><span class="from-loc">HOME</span></div>
-                                <div class="bp-item"><label>To</label><span class="to-loc">HOME</span></div>
+                                <div class="bp-item"><label>To</label><span class="to-loc">BEACH</span></div>
                                 <div class="bp-item"><label>Date</label><span class="date-val">--/--</span></div>
+                                <div class="bp-item"><label>Time</label><span class="date-val">--:--</span></div>
                             </div>
                         </div>
-
                         <div class="ticket-stub">
-                            <div class="bp-item"><label>Gate</label><span class="date-val">A12</span></div>
+                            <div class="bp-item"><label>Gate(인원)</label><span class="date-val">5명</span></div>
                             <div class="bp-item"><label>Seat</label><span class="date-val">24A</span></div>
-
                             <div class="bp-barcode-stub">
                                 <div class="bp-barcode">
                                     <div class="barcode-line w1"></div>
@@ -73,31 +70,37 @@
         </div>
 
         <div id="detail-screen" class="screen hidden-below">
-            <div class="header">
+            <div class="header detail-header">
                 <button onclick="navigate('list-screen', 'back')">◀ 목록</button>
                 <div class="gauge-container">
-                    <div>응답 (3/5)</div>
+                    <div style="margin-bottom: 4px;">참가자 응답 (3/5)</div>
                     <progress value="60" max="100"></progress>
                 </div>
                 <div style="width: 50px;"></div>
             </div>
+
             <div class="calendar-area">
-                <iframe src="../calender_UIUX/calender.html" class="calendar-placeholder"></iframe>
+                <iframe src="../calender_UIUX/calender.html" class="calendar-placeholder" scrolling="no" frameborder="0"
+                    allowtransparency="true"></iframe>
             </div>
+
             <div class="footer">
                 <button>🔗 초대</button>
                 <button class="mode-btn">모드 전환</button>
-                <button>👤 프로필</button>
+                <button onclick="showParticipantsPopup()">👥 참가자</button>
             </div>
         </div>
 
         <div id="delete-popup" class="popup-overlay">
             <div class="popup-box">
                 <p>일상으로 돌아가시겠습니까?</p>
-                <div class="popup-buttons"><button class="popup-btn yes" onclick="confirmDelete()">예</button><button
-                        class="popup-btn no" onclick="closePopup()">아니오</button></div>
+                <div class="popup-buttons">
+                    <button class="popup-btn yes" onclick="confirmDelete()">예</button>
+                    <button class="popup-btn no" onclick="closePopup()">아니오</button>
+                </div>
             </div>
         </div>
+
         <div id="create-popup" class="popup-overlay create-overlay">
             <div class="create-popup-box">
                 <p class="create-popup-title">새로운 여정</p>
@@ -108,30 +111,57 @@
                 </div>
 
                 <div class="input-group">
-                    <label class="input-label">도착지</label>
+                    <label class="input-label">도착지 (To)</label>
                     <input type="text" id="new-project-dest" class="create-input">
                 </div>
 
                 <div class="color-picker-label">테마 컬러</div>
                 <div class="color-options">
-                    <div class="color-options">
-                        <div class="color-dot active" style="background: #F6E6AA;"
-                            onclick="selectColor(this, '#F6E6AA')">
-                        </div>
-                        <div class="color-dot" style="background: #E76F51;" onclick="selectColor(this, '#E76F51')">
-                        </div>
-                        <div class="color-dot" style="background: #2A9D8F;" onclick="selectColor(this, '#2A9D8F')">
-                        </div>
-                        <div class="color-dot" style="background: #457B9D;" onclick="selectColor(this, '#457B9D')">
-                        </div>
+                    <div class="color-dot active" style="background: #F6E6AA;" onclick="selectColor(this, '#F6E6AA')">
                     </div>
-                    <div class="popup-buttons"><button class="popup-btn yes" onclick="addProject()">생성</button><button
-                            class="popup-btn no" onclick="closeCreatePopup()">취소</button></div>
+                    <div class="color-dot" style="background: #E76F51;" onclick="selectColor(this, '#E76F51')"></div>
+                    <div class="color-dot" style="background: #2A9D8F;" onclick="selectColor(this, '#2A9D8F')"></div>
+                    <div class="color-dot" style="background: #457B9D;" onclick="selectColor(this, '#457B9D')"></div>
+                </div>
+
+                <div class="popup-buttons">
+                    <button class="popup-btn yes" onclick="addProject()">생성</button>
+                    <button class="popup-btn no" onclick="closeCreatePopup()">취소</button>
                 </div>
             </div>
-
         </div>
-        <script src="script.js"></script>
+
+    </div>
+
+    <div id="participants-popup" class="popup-overlay">
+        <div class="popup-box participants-box">
+            <div class="popup-header">
+                <h3 style="font-family: 'OkMallangB'; color: var(--main-dark-green);">참가자 목록</h3>
+                <button class="close-btn" onclick="closeParticipantsPopup()">✕</button>
+            </div>
+            <ul id="participant-list" class="participant-list">
+            </ul>
+        </div>
+    </div>
+
+    <div id="edit-name-popup" class="popup-overlay create-overlay">
+        <div class="create-popup-box" style="width: 80%; max-width: 320px; text-align: center;">
+            <p class="create-popup-title" style="font-size: 1.3rem;">프로필 수정</p>
+
+            <div class="input-group">
+                <label class="input-label">내 이름</label>
+                <input type="text" id="edit-name-input" class="create-input" placeholder="이름을 입력하세요">
+            </div>
+
+            <div class="popup-buttons">
+                <button class="popup-btn yes" onclick="saveMyName()">저장</button>
+                <button class="popup-btn no" onclick="closeEditNamePopup()">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
 </body>
 
 </html>
